@@ -15,8 +15,9 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
 const fmt = n => n.toLocaleString('th-TH');
 const pick = arr => arr[Math.floor(Math.random() * arr.length)];
 const rand = (min, max) => min + Math.floor(Math.random() * (max - min + 1));
+const pad = n => String(n).padStart(2, '0');
 
-/* ---------- LINE links (only when configured) ---------- */
+/* ---------- LINE (only when configured) ---------- */
 if (CONFIG.lineId) {
   const lineAddUrl = `https://line.me/R/ti/p/${encodeURIComponent(CONFIG.lineId)}`;
   $$('[data-line-item]').forEach(el => { el.hidden = false; });
@@ -30,7 +31,7 @@ if (CONFIG.lineId) {
 
 /* ---------- Header ---------- */
 const header = $('.site-header');
-const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 20);
+const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 8);
 onScroll();
 window.addEventListener('scroll', onScroll, { passive: true });
 
@@ -73,31 +74,7 @@ const revealObserver = new IntersectionObserver((entries, obs) => {
 }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 $$('.reveal').forEach(el => revealObserver.observe(el));
 
-/* ---------- Stat counters ---------- */
-const animateCount = el => {
-  const target = Number(el.dataset.count);
-  const suffix = el.dataset.suffix || '';
-  if (reduceMotion) { el.textContent = fmt(target) + suffix; return; }
-  const duration = 1600;
-  const start = performance.now();
-  const step = now => {
-    const p = Math.min((now - start) / duration, 1);
-    const eased = 1 - Math.pow(1 - p, 3);
-    el.textContent = fmt(Math.round(target * eased)) + suffix;
-    if (p < 1) requestAnimationFrame(step);
-  };
-  requestAnimationFrame(step);
-};
-const countObserver = new IntersectionObserver((entries, obs) => {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) return;
-    animateCount(entry.target);
-    obs.unobserve(entry.target);
-  });
-}, { threshold: 0.5 });
-$$('[data-count]').forEach(el => countObserver.observe(el));
-
-/* ---------- Hero: simulated live stream ---------- */
+/* ---------- Hero: simulated live control room ---------- */
 (() => {
   const hero = $('.hero');
   if (!hero) return;
@@ -106,76 +83,76 @@ $$('[data-count]').forEach(el => countObserver.observe(el));
   new IntersectionObserver(([entry]) => { heroVisible = entry.isIntersecting; }).observe(hero);
   const running = () => heroVisible && !document.hidden;
 
-  // chat
-  const chat = $('#chat');
-  const users = ['nam.beauty', 'ploy_ploy', 'jane2539', 'mookmik', 'aom.aom', 'fern_fern', 'toey.t', 'bam_bam', 'kwan.k', 'mint2020'];
-  const messages = [
-    'CF 2 ชิ้นค่า 💕', 'ผิวแพ้ง่ายใช้ได้ไหมคะ', 'โอนแล้วนะคะ 🙏', 'ส่งฟรีไหมคะ', 'รับ 1 ค่ะ',
-    'ขอดูเนื้อครีมใกล้ ๆ หน่อยค่ะ', 'ใช้มาแล้ว ดีจริง!', 'มีโค้ดลดเพิ่มไหมคะ', 'F 3 ค่ะ',
-    'แม่ค้าพูดเก่งมาก 😂', 'ซื้อ 2 แถม 1 ถึงกี่โมงคะ', 'ตามมาจากคลิปค่ะ', 'ของแท้ไหมคะ', 'กดสั่งแล้วค่า ✨',
-  ];
-  let msgIndex = 0;
-  const addChat = () => {
+  // live timer
+  const timerEl = $('#liveTimer');
+  let seconds = 1 * 3600 + 12 * 60 + 8;
+  setInterval(() => {
+    seconds++;
     if (!running()) return;
-    const li = document.createElement('li');
-    if (Math.random() < 0.2) {
-      li.className = 'sys';
-      li.textContent = `🛒 ${pick(users)} เพิ่งสั่งซื้อ ${rand(1, 3)} ชิ้น`;
-    } else {
-      const name = document.createElement('b');
-      name.textContent = pick(users);
-      li.append(name, messages[msgIndex++ % messages.length]);
-    }
-    chat.append(li);
-    while (chat.children.length > 8) chat.firstElementChild.remove();
-  };
-  setInterval(addChat, 1500);
+    timerEl.textContent = `${pad(Math.floor(seconds / 3600))}:${pad(Math.floor((seconds % 3600) / 60))}:${pad(seconds % 60)}`;
+  }, 1000);
 
-  // floating hearts
-  const heartsBox = $('#hearts');
-  const heartColors = ['#FF2E63', '#FF7A3D', '#FFC43D', '#1FD1E0', '#FFFFFF', '#B197FC'];
-  if (!reduceMotion) {
-    setInterval(() => {
-      if (!running()) return;
-      const heart = document.createElement('span');
-      heart.className = 'heart';
-      heart.style.color = pick(heartColors);
-      heart.style.setProperty('--x', `${rand(-26, 18)}px`);
-      heart.innerHTML = '<svg class="ic"><use href="#i-heart"/></svg>';
-      heart.addEventListener('animationend', () => heart.remove());
-      heartsBox.append(heart);
-    }, 420);
-  }
-
-  // viewer count
-  const viewerEl = $('#viewerCount');
-  let viewers = 12480;
+  // viewers
+  const viewerEls = [$('#cViewers'), $('#pViewers')];
+  let viewers = 1284;
   setInterval(() => {
     if (!running()) return;
-    viewers = Math.max(9800, viewers + rand(-60, 140));
-    viewerEl.textContent = fmt(viewers);
+    viewers = Math.max(900, viewers + rand(-25, 40));
+    viewerEls.forEach(el => { el.textContent = fmt(viewers); });
   }, 1800);
 
-  // sales ticker
-  const salesEl = $('#salesCount');
-  let sales = 128450;
-  setInterval(() => {
-    if (!running()) return;
-    sales += 299 * rand(1, 3);
-    salesEl.textContent = fmt(sales);
-  }, 2200);
-
-  // new-order toast
-  const orderCard = $('.float-order');
-  const orderText = $('#orderText');
+  // orders, sales and order feed
+  const ordersEl = $('#cOrders');
+  const salesEl = $('#cSales');
+  const feed = $('.feed');
+  const feedText = $('#orderFeed');
   const buyers = ['คุณ P***', 'คุณ N***', 'คุณ M***', 'คุณ J***', 'คุณ A***', 'คุณ T***', 'คุณ K***'];
+  const products = [['เซรั่มหน้าใส', 299], ['ครีมกันแดด SPF50', 259], ['เซ็ตคู่ เซรั่ม + กันแดด', 499]];
+  let orders = 86;
+  let sales = 25734;
   setInterval(() => {
     if (!running()) return;
-    orderText.textContent = `${pick(buyers)} · ${rand(1, 3)} ชิ้น`;
-    orderCard.classList.remove('pop');
-    void orderCard.offsetWidth; // restart animation
-    orderCard.classList.add('pop');
-  }, 4000);
+    const [name, price] = pick(products);
+    const qty = rand(1, 3);
+    orders += 1;
+    sales += price * qty;
+    ordersEl.textContent = fmt(orders);
+    salesEl.textContent = fmt(sales);
+    feedText.textContent = `${pick(buyers)} สั่ง${name} ${qty} ชิ้น`;
+    feed.classList.remove('pop');
+    void feed.offsetWidth; // restart animation
+    feed.classList.add('pop');
+  }, 3200);
+})();
+
+/* ---------- Pricing: build phone-friendly plan cards from the table ---------- */
+(() => {
+  const table = $('.price-table');
+  const target = $('#planCards');
+  if (!table || !target) return;
+  const heads = $$('thead th', table).slice(1);
+  const rows = $$('tbody tr', table);
+  const actions = $$('tfoot td', table);
+  heads.forEach((th, i) => {
+    const card = document.createElement('article');
+    card.className = 'plan-card' + (th.classList.contains('hot') ? ' hot' : '');
+    card.innerHTML = th.innerHTML;
+    const list = document.createElement('ul');
+    rows.forEach(row => {
+      const li = document.createElement('li');
+      const label = document.createElement('span');
+      label.textContent = row.querySelector('th').textContent;
+      const value = document.createElement('b');
+      value.innerHTML = row.querySelectorAll('td')[i].innerHTML;
+      li.append(label, value);
+      list.append(li);
+    });
+    card.append(list);
+    const btn = actions[i] && actions[i].querySelector('.btn');
+    if (btn) card.append(btn.cloneNode(true));
+    target.append(card);
+  });
+  table.closest('.container').classList.add('has-cards');
 })();
 
 /* ---------- Pricing → preselect package in form ---------- */
@@ -192,7 +169,7 @@ const formCard = form.closest('.form-card');
 let lastMessage = '';
 
 if (CONFIG.lineId) {
-  $('#formNote').textContent = 'เมื่อกดส่ง ระบบจะเปิด LINE พร้อมข้อความที่กรอกไว้ เพื่อส่งถึงทีมงานทันที';
+  $('#formNote').textContent = 'เมื่อกดส่ง ระบบจะเปิด LINE พร้อมข้อมูลที่กรอกไว้ เพื่อส่งถึงทีมงานทันที';
   $('#successText').textContent = 'กดส่งข้อความในหน้าต่าง LINE ที่เปิดขึ้นมา ถ้า LINE ไม่เปิด คัดลอกข้อความไว้ส่งเอง หรือโทรหาเราได้เลย';
 }
 
@@ -204,19 +181,17 @@ const validateField = input => {
 
 form.addEventListener('submit', e => {
   e.preventDefault();
-  const required = $$('[required]', form);
-  const invalid = required.filter(input => !validateField(input));
+  const invalid = $$('[required]', form).filter(input => !validateField(input));
   if (invalid.length) { invalid[0].focus(); return; }
 
   const data = new FormData(form);
   const value = key => (data.get(key) || '').toString().trim() || '-';
   lastMessage = [
-    'สวัสดีครับ/ค่ะ สนใจบริการไลฟ์สดของ Best In Town',
+    'สวัสดีครับ/ค่ะ สนใจบริการไลฟ์ขายสินค้าของ Best In Town',
     `ชื่อ: ${value('name')}`,
     `แบรนด์/ร้านค้า: ${value('brand')}`,
     `เบอร์โทร: ${value('phone')}`,
-    `LINE ID: ${value('line')}`,
-    `ประเภทสินค้า: ${value('category')}`,
+    `หมวดสินค้า: ${value('category')}`,
     `แพ็กเกจที่สนใจ: ${value('package')}`,
     `แพลตฟอร์ม: ${data.getAll('platform').join(', ') || '-'}`,
     `รายละเอียด: ${value('detail')}`,
@@ -234,6 +209,10 @@ form.addEventListener('submit', e => {
   }
 });
 
+form.addEventListener('input', e => {
+  if (e.target.closest('.field.invalid') && e.target.matches('[required]')) validateField(e.target);
+});
+
 const copyBtn = $('#copyMsg');
 copyBtn.addEventListener('click', async () => {
   const label = $('span', copyBtn);
@@ -241,14 +220,9 @@ copyBtn.addEventListener('click', async () => {
     await navigator.clipboard.writeText(lastMessage);
     label.textContent = 'คัดลอกแล้ว ✓';
   } catch {
-    label.textContent = 'คัดลอกไม่ได้ ลองโทรแทนนะ';
+    label.textContent = 'คัดลอกไม่ได้ ลองโทรแทน';
   }
   setTimeout(() => { label.textContent = 'คัดลอกข้อความ'; }, 2500);
-});
-
-form.addEventListener('input', e => {
-  const field = e.target.closest('.field.invalid');
-  if (field && e.target.matches('[required]')) validateField(e.target);
 });
 
 $('#formReset').addEventListener('click', () => {
