@@ -1,7 +1,7 @@
 /* =========================================================
    ตั้งค่าหลัก
    - phone: เบอร์ที่ฟอร์มจะส่งข้อความ (SMS) ไปหา
-   - lineId: ใส่ LINE OA จริง เช่น '@bestintown' แล้วลิงก์ LINE จะแสดงเอง
+   - lineId: ใส่ LINE OA จริง เช่น '@millionlive888' แล้วลิงก์ LINE จะแสดงเอง
              และฟอร์มจะเปลี่ยนไปส่งทาง LINE แทน SMS (ปล่อยว่าง = ซ่อน LINE)
    ========================================================= */
 const CONFIG = {
@@ -187,7 +187,7 @@ form.addEventListener('submit', e => {
   const data = new FormData(form);
   const value = key => (data.get(key) || '').toString().trim() || '-';
   lastMessage = [
-    'สวัสดีครับ/ค่ะ สนใจบริการไลฟ์ขายสินค้าของ Best In Town',
+    'สวัสดีครับ/ค่ะ สนใจบริการไลฟ์ขายสินค้าของ Million Live 888',
     `ชื่อ: ${value('name')}`,
     `แบรนด์/ร้านค้า: ${value('brand')}`,
     `เบอร์โทร: ${value('phone')}`,
