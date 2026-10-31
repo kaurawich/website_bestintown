@@ -233,6 +233,20 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .platforms li { font-family: var(--font-display); font-weight: 600; font-size: 17px; color: #85908A; }
 @media (max-width: 760px) { .platforms-inner { justify-content: center; text-align: center; } .platforms ul { justify-content: center; gap: 6px 18px; } .platforms li { font-size: 15px; } }
 
+/* ---------- Clients ---------- */
+.clients { padding: 56px 0 8px; }
+.clients-title { margin-bottom: 24px; text-align: center; font-size: 18px; font-weight: 600; color: var(--muted); }
+.client-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+.client-grid li { display: grid; place-items: center; width: 168px; height: 88px; padding: 16px 20px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); }
+.client-grid img { max-width: 100%; max-height: 48px; object-fit: contain; filter: grayscale(1); opacity: .75; transition: filter .25s, opacity .25s; }
+.client-grid li:hover img { filter: none; opacity: 1; }
+.client-grid .client-name { font-family: var(--font-display); font-weight: 600; font-size: 17px; line-height: 1.3; color: var(--ink); text-align: center; }
+@media (max-width: 560px) {
+  .clients { padding-top: 44px; }
+  .client-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .client-grid li { width: auto; height: 76px; }
+}
+
 /* ---------- Concerns ---------- */
 .concern-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
 .concern { display: flex; flex-direction: column; gap: 14px; padding: 30px; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line); transition: box-shadow .25s, border-color .25s; }
