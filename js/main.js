@@ -123,6 +123,34 @@ $$('.reveal').forEach(el => revealObserver.observe(el));
     void feed.offsetWidth; // restart animation
     feed.classList.add('pop');
   }, 3200);
+
+  // viewer comments on the preview
+  const chat = $('#liveChat');
+  const comments = ['CF เซรั่ม 2 ค่ะ', 'ส่งฟรีไหมคะ', 'ผิวแพ้ง่ายใช้ได้ไหมคะ', 'สั่งแล้วค่ะ', 'ขอดูเนื้อครีมอีกทีค่ะ', 'เซ็ตคู่ยังเหลือไหม', 'กันแดดเนื้อบางเบาไหมคะ'];
+  setInterval(() => {
+    if (!running()) return;
+    const li = document.createElement('li');
+    const name = document.createElement('b');
+    name.textContent = pick(buyers).replace('คุณ ', '');
+    li.append(name, pick(comments));
+    chat.append(li);
+    while (chat.children.length > 3) chat.firstElementChild.remove();
+  }, 2200);
+
+  // floating hearts
+  if (reduceMotion) return;
+  const hearts = $('#hearts');
+  const heartColors = ['#FFFFFF', '#E8C066', '#BFE3D3'];
+  setInterval(() => {
+    if (!running()) return;
+    const heart = document.createElement('span');
+    heart.className = 'heart';
+    heart.style.setProperty('--x', `${rand(-14, 10)}px`);
+    heart.style.setProperty('--c', pick(heartColors));
+    heart.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
+    hearts.append(heart);
+    setTimeout(() => heart.remove(), 2700);
+  }, 650);
 })();
 
 /* ---------- Pricing: build phone-friendly plan cards from the table ---------- */
