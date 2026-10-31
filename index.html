@@ -12,7 +12,7 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500&family=Prompt:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <script>document.documentElement.classList.add('js')</script>
 </head>
@@ -20,6 +20,13 @@
 
   <!-- ===== Icon sprite ===== -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="logo-mark" viewBox="0 0 440 440">
+      <rect width="440" height="440" rx="110" fill="#0E5A43"/>
+      <path d="M110 308V130l110 125 110-125v178" fill="none" stroke="#fff" stroke-width="47" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="345" cy="87" r="51" fill="#fff"/>
+      <circle cx="345" cy="87" r="33" fill="#E5484D"/>
+      <g fill="#E8C066"><circle cx="176" cy="375" r="15"/><circle cx="220" cy="375" r="15"/><circle cx="264" cy="375" r="15"/></g>
+    </symbol>
     <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></symbol>
     <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
     <symbol id="i-file-check" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 15l2 2 4-4"/></symbol>
@@ -48,8 +55,8 @@
   <header class="site-header">
     <div class="container nav-wrap">
       <a href="#top" class="logo" aria-label="Million Live 888 หน้าแรก">
-        <span class="logo-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7.5v9l7.5-4.5z" fill="#fff"/></svg><i></i></span>
-        <span class="logo-text">Million Live 888<small>Live Selling Partner</small></span>
+        <svg class="logo-mark" aria-hidden="true"><use href="#logo-mark"/></svg>
+        <span class="logo-text">Million Live</span>
       </a>
       <nav class="nav" id="nav" aria-label="เมนูหลัก">
         <a href="#trust">ทำไมไว้ใจได้</a>
@@ -111,7 +118,7 @@
                   <rect x="0" y="150" width="70" height="5" fill="#fff" opacity=".6"/>
                   <rect x="10" y="122" width="14" height="28" rx="3" fill="#0E5A43"/>
                   <rect x="28" y="130" width="12" height="20" rx="3" fill="#fff"/>
-                  <rect x="44" y="118" width="16" height="32" rx="3" fill="#F2A33A"/>
+                  <rect x="44" y="118" width="16" height="32" rx="3" fill="#E8C066"/>
                   <rect x="212" y="176" width="68" height="5" fill="#fff" opacity=".6"/>
                   <rect x="222" y="150" width="16" height="26" rx="3" fill="#fff"/>
                   <rect x="242" y="144" width="14" height="32" rx="3" fill="#7FB8A4"/>
@@ -130,7 +137,7 @@
                   <circle cx="161" cy="233" r="6" fill="#F28FA0" opacity=".5"/>
                   <path d="M131 237q9 9 18 0" stroke="#B5535F" stroke-width="2.5" fill="none" stroke-linecap="round"/>
                   <path d="M212 340c22 46 18 80-18 56" stroke="#0E5A43" stroke-width="26" fill="none" stroke-linecap="round"/>
-                  <rect x="176" y="300" width="18" height="20" rx="4" fill="#F2A33A"/>
+                  <rect x="176" y="300" width="18" height="20" rx="4" fill="#E8C066"/>
                   <rect x="168" y="316" width="34" height="66" rx="9" fill="#fff"/>
                   <rect x="172" y="336" width="26" height="24" rx="4" fill="#CFE6DC"/>
                   <ellipse cx="186" cy="386" rx="20" ry="13" fill="#F4C7A8"/>
@@ -183,7 +190,7 @@
       <div class="container">
         <div class="section-head reveal">
           <span class="eyebrow">เรื่องที่แบรนด์กังวลก่อนจ้าง</span>
-          <h2>ไลฟ์คือหน้าร้านของคุณ<br>เราจึงดูแลเหมือนเป็นร้านของเราเอง</h2>
+          <h2>ไลฟ์คือหน้าร้านของคุณ<br>เราจึงดูแลเหมือนเป็น<span class="nowrap">ร้านของเราเอง</span></h2>
           <p>การให้คนอื่นมาขายแทนต้องใช้ความไว้ใจ นี่คือสิ่งที่เราทำในแต่ละเรื่องที่เจ้าของแบรนด์มักกังวล</p>
         </div>
 
@@ -279,7 +286,7 @@
             <li><svg class="ic"><use href="#i-check"/></svg>สินค้าขายดีและช่วงเวลาที่ขายดี</li>
             <li><svg class="ic"><use href="#i-check"/></svg>คำถามที่ลูกค้าถามบ่อยระหว่างไลฟ์</li>
             <li><svg class="ic"><use href="#i-check"/></svg>ข้อเสนอแนะสำหรับไลฟ์ครั้งถัดไป</li>
-            <li><svg class="ic"><use href="#i-check"/></svg>สรุปภาพรวมรายสัปดาห์หรือรายเดือนตามแพ็กเกจ</li>
+            <li><svg class="ic"><use href="#i-check"/></svg>สรุปภาพรวมรายสัปดาห์หรือรายเดือน<span class="nowrap">ตามแพ็กเกจ</span></li>
           </ul>
         </div>
 
@@ -386,7 +393,7 @@
         <div class="section-head center reveal">
           <span class="eyebrow">ราคา</span>
           <h2>ราคาชัดเจน รู้ก่อนว่าจ่ายอะไรบ้าง</h2>
-          <p>เริ่มจากไลฟ์ทดลองครั้งเดียวก็ได้ แล้วค่อยเลือกแพ็กเกจรายเดือนเมื่อเห็นผล</p>
+          <p>เริ่มจากไลฟ์ทดลองครั้งเดียวก็ได้ แล้วค่อยเลือก<span class="nowrap">แพ็กเกจรายเดือน</span>เมื่อเห็นผล</p>
         </div>
 
         <div class="table-wrap reveal">
@@ -444,7 +451,7 @@
             </ul>
           </div>
         </div>
-        <p class="pricing-note">ราคายังไม่รวม VAT 7% · แพ็กเกจรายเดือนชำระเป็นรายเดือน สัญญาขั้นต่ำ 1 เดือน</p>
+        <p class="pricing-note">ราคายังไม่รวม VAT 7% · <span class="nowrap">แพ็กเกจรายเดือน</span><span class="nowrap">ชำระเป็นรายเดือน</span> สัญญาขั้นต่ำ 1 เดือน</p>
       </div>
     </section>
 
@@ -594,9 +601,9 @@
   <footer class="site-footer">
     <div class="container footer-grid">
       <div class="footer-about">
-        <a href="#top" class="logo">
-          <span class="logo-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7.5v9l7.5-4.5z" fill="#fff"/></svg><i></i></span>
-          <span class="logo-text">Million Live 888<small>Live Selling Partner</small></span>
+        <a href="#top" class="logo" aria-label="Million Live 888 กลับขึ้นด้านบน">
+          <svg class="logo-mark" aria-hidden="true"><use href="#logo-mark"/></svg>
+          <span class="logo-text">Million Live</span>
         </a>
         <p>รับไลฟ์ขายสินค้าให้แบรนด์และร้านค้าออนไลน์ ทำงานโปร่งใส ตรวจสอบได้ทุกขั้นตอน</p>
       </div>

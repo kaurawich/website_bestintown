@@ -118,7 +118,7 @@ $$('.reveal').forEach(el => revealObserver.observe(el));
     sales += price * qty;
     ordersEl.textContent = fmt(orders);
     salesEl.textContent = fmt(sales);
-    feedText.textContent = `${pick(buyers)} สั่ง${name} ${qty} ชิ้น`;
+    feedText.textContent = `${pick(buyers)} สั่ง${name} ${qty} ชิ้น`;
     feed.classList.remove('pop');
     void feed.offsetWidth; // restart animation
     feed.classList.add('pop');
